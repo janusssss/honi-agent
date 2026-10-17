@@ -25,7 +25,8 @@ var GetConfig = sync.OnceValue(func() *Config {
 })
 
 type Config struct {
-	LLM          LLM    `toml:"LLM"`
+	Provider     string
+	LLM          []LLM  `toml:"LLM"`
 	SystemPrompt string `toml:"-"`
 	path         string
 	Debug        bool  `toml:"debug"`
@@ -40,8 +41,9 @@ type LLM struct {
 }
 
 type MCP struct {
-	Name   string `toml:"name"`
-	ApiKey string `toml:"name"`
+	Name     string `toml:"name"`
+	ApiKey   string `toml:"api_key"`
+	Endpoint string `toml:"endpoint"`
 }
 
 func newConfig() (*Config, error) {

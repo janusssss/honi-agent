@@ -1,6 +1,15 @@
-debug = true
-[LLM]
+debug = false
+provider = "mimo"
+
+[[LLM]]
   provider = "openAi"
   model = "mimo-v2.6-flash"
   base_url = "https://token-plan-cn.xiaomimimo.com/v1"
+[[LLM]]
+  provider = "mimo"
+  model = "mimo-v2.6-flash"
+  base_url = "https://token-plan-cn.xiaomimimo.com/v1"
 
+[[MCP]]
+  name = "anysearch"
+  endpoint = "https://api.anysearch.com/mcp"
