@@ -5,6 +5,7 @@ import (
 	"honi/internal/agent"
 	"log/slog"
 	"os"
+	"path/filepath"
 	"sync"
 
 	"github.com/SpellingDragon/wechat-robot-go/wechat"
@@ -12,8 +13,16 @@ import (
 )
 
 var GetWechatBot = sync.OnceValue(func() *Wechat {
+	home, err := os.UserHomeDir()
+	if err != nil {
+		slog.Error("UserHomeDir failed", "err", err)
+		os.Exit(1)
+	}
+	appHome := filepath.Join(home, ".config", "honi")
 	return &Wechat{
-		bot: wechat.NewBot(),
+		bot: wechat.NewBot(
+			wechat.WithTokenFile(filepath.Join(appHome, "weixin-token.json")),
+			wechat.WithContextTokenDir(filepath.Join(appHome, "wechat-context-tokens"))),
 		ctx: context.Background(),
 	}
 })
